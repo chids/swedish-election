@@ -10,24 +10,28 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
 import nu.xom.Nodes;
+import nu.xom.ParsingException;
+import nu.xom.ValidityException;
 
 public final class XmlToPartyMapper
 {
+    private static final Logger log = Logger.getLogger(XmlToPartyMapper.class.getName());
     private static final NumberFormat SWEDISH_NUMBER_FORMAT = NumberFormat.getNumberInstance(new Locale("sv", "se"));
 
-    public Parties parseElectedParties(final Document document) throws IOException
+    public Parties parseElectedParties(final Document document) throws IOException, ValidityException, ParsingException
     {
-        final Set<Party> result = new HashSet<Party>();
         final Element root = document.getRootElement();
+        final Set<Party> result = new HashSet<Party>();
         final Elements parties = root.getChildElements("PARTI");
         for(Element element : iterable(parties))
         {
-            final String abbreviation = element.getAttributeValue("F…RKORTNING");
+            final String abbreviation = element.getAttributeValue("FÃ–RKORTNING");
             final String name = element.getAttributeValue("BETECKNING");
             final double percent = getPercent(root, abbreviation);
             final Party party = new Party(abbreviation, name, percent);
@@ -54,7 +58,8 @@ public final class XmlToPartyMapper
             }
             catch(final ParseException e)
             {
-                throw new AssertionError("Failed to parse percent: " + e.getMessage());
+                log.warning("Failed to parse percent: " + e.getMessage());
+                return 0;
             }
         }
         else

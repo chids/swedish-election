@@ -4,9 +4,6 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
-	<!-- <servlet> <servlet-name>Val</servlet-name> <servlet-class>gustafson.marten.val.ValServlet</servlet-class> 
-		</servlet> <servlet-mapping> <servlet-name>Val</servlet-name> <url-pattern>/val</url-pattern> 
-		</servlet-mapping> -->
 	<servlet>
 		<servlet-name>swedish-election-api</servlet-name>
 		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>

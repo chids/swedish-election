@@ -1,45 +1,56 @@
 package gustafson.marten.election.datasource;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
-import nu.xom.Builder;
+import org.apache.commons.io.IOUtils;
+
 import nu.xom.Document;
+import nu.xom.ParsingException;
+import nu.xom.ValidityException;
 
-public class UrlLoader implements Loader
+import com.sun.jersey.api.client.ClientResponse;
+
+public final class UrlLoader
 {
-    private static final Logger log = Logger.getLogger(Loader.class.getName());
+    public static final String USER_AGENT = "valapi-robot/1.0 (Google App Engine) marten.gustafson@gmail.com";
 
-    private final URL url;
+    private static final Logger log = Logger.getLogger(UrlLoader.class.getName());
 
-    public UrlLoader(final int year) throws MalformedURLException
+    private final Map<String, Document> documents = new HashMap<String, Document>();
+    private final AbstractResourceHandler handler;
+
+    public UrlLoader(final AbstractResourceHandler handler)
     {
-        this.url = new URL("http://www.val.se/val/val" + year + "/valnatt/xml/valnatt_00R.xml");
-        log.info("Configured for: " + this.url);
+        this.handler = handler;
     }
 
-    /*
-    < Last-Modified: Tue, 19 Sep 2006 08:48:53 GMT
-    < ETag: "117001b-8b992-41dca8f61e740"
-     */
-    @Override
-    public Document load() throws IOException
+    public Document get(final String file) throws ValidityException, ParsingException, IOException
     {
-        HttpURLConnection connection = null;
+        loadFile(file);
+        return this.documents.get(file);
+    }
+
+    public void loadFile(final String file) throws IOException
+    {
+        final FetchResponse response = this.handler.fetch(file);
         try
         {
-            connection = (HttpURLConnection)this.url.openConnection();
-            connection.setRequestProperty("User-Agent", "valapi-robot/1.0 (Google App Engine) marten.gustafson@gmail.com");
-            if(200 == connection.getResponseCode())
+            if(200 == response.status)
             {
-                return new Builder(true).build(connection.getInputStream()).getDocument();
+                final Document parsed = this.handler.parseResponse(response.stream);
+                this.documents.put(file, parsed);
+                log.info("Got and parsed file " + file + " storing with etag: " + response.etag);
+            }
+            else if(304 == response.status)
+            {
+                log.info(file + " not modified");
             }
             else
             {
-                throw new IOException("Failed to get document, staus was: " + connection.getResponseCode() + " for: " + this.url);
+                throw new IOException("Failed to get document, staus was: " + response.status + " for: " + file);
             }
         }
         catch(final Exception e)
@@ -48,10 +59,34 @@ public class UrlLoader implements Loader
         }
         finally
         {
-            if(connection != null)
+            IOUtils.closeQuietly(response.stream);
+        }
+    }
+
+    public boolean hasChanged(final String file)
+    {
+        if(has(file))
+        {
+            final ClientResponse response = this.handler.check(file);
+            try
             {
-                connection.disconnect();
+                log.info("Got " + response.getStatus() + " - " + response.getClientResponseStatus() + " when trying to get: " + file);
+                return response.getStatus() != 304;
+            }
+            finally
+            {
+                response.close();
             }
         }
+        else
+        {
+            log.info(file + " is not familiar, returing true for hasChanged");
+            return true;
+        }
+    }
+
+    public boolean has(final String file)
+    {
+        return this.documents.containsKey(file);
     }
 }
