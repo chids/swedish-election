@@ -15,6 +15,7 @@ import nu.xom.ValidityException;
 import org.apache.commons.io.IOUtils;
 
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource.Builder;
 
 public final class XmlResourceHandler extends AbstractResourceHandler
 {
@@ -34,7 +35,8 @@ public final class XmlResourceHandler extends AbstractResourceHandler
     @Override
     public FetchResponse fetch(final String file)
     {
-        final ClientResponse response = createResource(file).get(ClientResponse.class);
+        final Builder resource = createResource(file);
+        final ClientResponse response = resource.get(ClientResponse.class);
         this.etags.put(file, response.getEntityTag());
         return new FetchResponse(response);
     }

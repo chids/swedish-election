@@ -1,10 +1,11 @@
 package gustafson.marten.election.tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import gustafson.marten.election.model.Block;
 import gustafson.marten.election.model.Parties;
 import gustafson.marten.election.model.Party;
-import gustafson.marten.election.util.PercentComparator;
+import gustafson.marten.election.model.PercentComparator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,6 +37,25 @@ public class PartiesTest
     }
 
     @Test
+    public void groupHandlesNonExistantParties() throws IOException
+    {
+        final Parties parties = new Parties(mockParties());
+        final Parties grouped = parties.group(new Block("The A-Team!", "A", "B"), new Block("Something Comletely Different", "Y", "X"));
+        final Iterator<Party> iterator = grouped.iterator();
+        verifyParty(iterator.next(), "A, B", 15);
+        assertFalse("Iterator hasNext was true", iterator.hasNext());
+    }
+
+    @Test
+    public void groupRoundsOfPercentToOneDecimal() throws IOException
+    {
+        final Parties parties = new Parties(new Party("A", "", 5.2), new Party("B", "", 35.2));
+        final Parties grouped = parties.group(new Block("Test", "A", "B"));
+        final Iterator<Party> iterator = grouped.iterator();
+        verifyParty(iterator.next(), "A, B", 40.4);
+    }
+
+    @Test
     public void sort() throws IOException
     {
         final Parties sorted = new Parties(mockParties()).sort(PercentComparator.Descending);
@@ -50,7 +70,7 @@ public class PartiesTest
     public void comparePreservesOrderAndCalculatesDifferenceCorrect() throws IOException
     {
         final Parties first = new Parties(mockParties());
-        final Parties second = new Parties(new Party[] {new Party("A", "A-Team", 40), new Party("C", "Caol Ila", 5)});
+        final Parties second = new Parties(new Party[] { new Party("A", "A-Team", 40), new Party("C", "Caol Ila", 5) });
         final Parties diff = first.compare(second);
         final Iterator<Party> iterator = diff.iterator();
         verifyParty(iterator.next(), "A-Team", 35);

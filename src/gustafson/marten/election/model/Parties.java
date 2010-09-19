@@ -1,6 +1,7 @@
 package gustafson.marten.election.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -57,6 +58,11 @@ public final class Parties implements Iterable<Party>
 
     public Parties group(final Block... blocks)
     {
+        return group(Arrays.asList(blocks));
+    }
+
+    public Parties group(final Iterable<Block> blocks)
+    {
         final List<Party> grouped = new ArrayList<Party>();
         for(final Block block : blocks)
         {
@@ -65,14 +71,20 @@ public final class Parties implements Iterable<Party>
             for(final String member : block.getMembers())
             {
                 final Party party = this.get(member);
-                if(members.length() > 0)
+                if(party != null)
                 {
-                    members.append(", ");
+                    if(members.length() > 0)
+                    {
+                        members.append(", ");
+                    }
+                    members.append(party.getAbbreviation());
+                    total += party.getPercent();
                 }
-                members.append(party.getAbbreviation());
-                total += party.getPercent();
             }
-            grouped.add(new Party(block.getName(), members.toString(), total));
+            if(members.length() > 0)
+            {
+                grouped.add(new Party(block.getName(), members.toString(), Math.round(total * 100.0) / 100.0));
+            }
         }
         return new Parties(grouped);
     }

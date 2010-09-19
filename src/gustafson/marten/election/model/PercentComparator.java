@@ -1,18 +1,16 @@
-package gustafson.marten.election.util;
-
-import gustafson.marten.election.model.Party;
+package gustafson.marten.election.model;
 
 import java.util.Comparator;
 
 public final class PercentComparator implements Comparator<Party>
 {
-    public static PercentComparator Ascending = new PercentComparator(true);
-    public static PercentComparator Descending = new PercentComparator(false);
-    
+    public static final Comparator<Party> Ascending = new PercentComparator(true);
+    public static final Comparator<Party> Descending = new PercentComparator(false);
+
     private final int lessThan;
     private final int greaterThan;
 
-    private PercentComparator(final boolean ascending)
+    PercentComparator(final boolean ascending)
     {
         this.lessThan = ascending ? -1 : 1;
         this.greaterThan = -this.lessThan;
@@ -30,5 +28,4 @@ public final class PercentComparator implements Comparator<Party>
             return (one.getPercent() > two.getPercent()) ? this.greaterThan : this.lessThan;
         }
     }
-
 }

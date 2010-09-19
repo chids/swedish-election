@@ -1,10 +1,10 @@
 package gustafson.marten.election.tests;
 
+import static org.junit.Assert.assertEquals;
 import gustafson.marten.election.model.Party;
-import gustafson.marten.election.util.PercentComparator;
+import gustafson.marten.election.model.PercentComparator;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class PercentComparatorTest
 {
@@ -21,6 +21,7 @@ public class PercentComparatorTest
         assertEquals(-1, PercentComparator.Ascending.compare(new Party("A", "", 1), new Party("B", "", 1)));
         assertEquals(-1, PercentComparator.Descending.compare(new Party("A", "", 1), new Party("B", "", 1)));
     }
+
     @Test
     public void firstPartyPercentIsLessThanSecondPartyPercent()
     {
@@ -34,4 +35,5 @@ public class PercentComparatorTest
         assertEquals(1, PercentComparator.Ascending.compare(new Party("", "", 9), new Party("", "", 0)));
         assertEquals(-1, PercentComparator.Descending.compare(new Party("", "", 9), new Party("", "", 0)));
     }
+
 }

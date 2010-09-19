@@ -3,13 +3,16 @@ package gustafson.marten.election.api;
 import gustafson.marten.election.datasource.UrlLoader;
 import gustafson.marten.election.datasource.XmlResourceHandler;
 import gustafson.marten.election.datasource.ZipResourceHandler;
+import gustafson.marten.election.model.Block;
 import gustafson.marten.election.model.Parties;
+import gustafson.marten.election.model.PartyComparator;
 import gustafson.marten.election.util.XmlToPartyMapper;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
@@ -18,6 +21,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
@@ -33,6 +37,7 @@ import com.sun.jersey.spi.resource.Singleton;
 @Singleton
 public final class ApiServlet
 {
+    private static final String CHARSET = "; charset=ISO-8859-1";
     private static final Logger log = Logger.getLogger(ApiServlet.class.getName());
     private static final XmlToPartyMapper mapper = new XmlToPartyMapper();
 
@@ -80,6 +85,7 @@ public final class ApiServlet
             }
             catch(final Exception e)
             {
+                e.printStackTrace(System.err);
                 log.severe(e.getMessage());
             }
         }
@@ -92,14 +98,14 @@ public final class ApiServlet
     }
 
     @GET
-    @Produces(MediaType.TEXT_HTML + ";encoding=UTF-8")
+    @Produces(MediaType.TEXT_HTML + CHARSET)
     public String listElections()
     {
         final StringBuilder html = new StringBuilder();
         html.append("<html><body><pre>");
         for(final String year : this.elections.keySet())
         {
-            html.append("<a href='election/");
+            html.append("<a href='");
             html.append(year);
             html.append("'>");
             html.append(year);
@@ -110,10 +116,11 @@ public final class ApiServlet
     }
 
     @GET
-    @Path("election/{year}")
-    @Produces(MediaType.TEXT_HTML + ";encoding=UTF-8")
+    @Path("{year}")
+    @Produces(MediaType.TEXT_PLAIN + CHARSET)
     public String election(@PathParam("year") final String year)
     {
+
         if(this.elections.containsKey(year))
         {
             return this.elections.get(year).toString();
@@ -122,5 +129,43 @@ public final class ApiServlet
         {
             throw new WebApplicationException(Status.NOT_FOUND);
         }
+    }
+
+    @GET
+    @Path("{year}/{sortBy}/{order}")
+    @Produces(MediaType.TEXT_PLAIN + CHARSET)
+    public String electionSorted(@PathParam("year") final String year, @PathParam("sortBy") final String sortBy,
+            @PathParam("order") final String order)
+    {
+        if(this.elections.containsKey(year))
+        {
+            final Parties parties = this.elections.get(year);
+            return parties.sort(PartyComparator.valueOf(sortBy, order)).toString();
+        }
+        else
+        {
+            throw new WebApplicationException(Status.NOT_FOUND);
+        }
+    }
+
+    @GET
+    @Path("{year}/group")
+    @Produces(MediaType.TEXT_PLAIN + CHARSET)
+    public String electionBlocks(@PathParam("year") final String year, @QueryParam("block") final List<Block> blocks)
+    {
+        if(this.elections.containsKey(year))
+        {
+            final Parties parties = this.elections.get(year);
+            return parties.group(blocks).toString();
+        }
+        else
+        {
+            throw new WebApplicationException(Status.NOT_FOUND);
+        }
+    }
+
+    public Block parseBlock(final String blockDefinition)
+    {
+        return null;
     }
 }

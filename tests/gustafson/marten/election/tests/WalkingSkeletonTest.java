@@ -8,7 +8,7 @@ import gustafson.marten.election.datasource.XmlResourceHandler;
 import gustafson.marten.election.datasource.ZipResourceHandler;
 import gustafson.marten.election.model.Parties;
 import gustafson.marten.election.model.Party;
-import gustafson.marten.election.util.PercentComparator;
+import gustafson.marten.election.model.PercentComparator;
 import gustafson.marten.election.util.XmlToPartyMapper;
 
 import java.io.IOException;
