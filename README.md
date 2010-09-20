@@ -32,7 +32,7 @@ slow the first time slow since I don't persist data yet...
 
 TODO
 
-http://github.com/chids/swedish-election-api/issues/
+<a href="http://github.com/chids/swedish-election-api/issues/">http://github.com/chids/swedish-election-api/issues/</a>
 
 
 
