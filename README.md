@@ -2,9 +2,37 @@
 RESTful HTML XML/JSON API to browse Swedish election results
 
 
+
+GAE
+
 The source is packaged for Google App Engine.
 If you download it you need to adjust the aplication name inside the file:
 war/WEB-INF/application.xml
+
+
+
+DEMO
+
+It's running over at: http://swedish-election-api.appspot.com
+
+List available elections:            http://swedish-election-api.appspot.com
+List 2010 results:                   http://swedish-election-api.appspot.com/2010/
+List 2010 results by name:           http://swedish-election-api.appspot.com/2010/sort/name/asc
+List 2010 results by percent:        http://swedish-election-api.appspot.com/2010/sort/percent/asc
+List 2010 results grouped by block:  http://swedish-election-api.appspot.com/2010/group?block=Bl%C3%A5tt:M,C,FP,KD&block=R%C3%B6tt:S,MP,V&block=Mis%C3%A4r:SD
+
+
+
+TODO
+
+http://github.com/chids/swedish-election-api/issues/
+
+
+
+IRONY
+
+My plan was to attend http://codemocracy.se/ but I had other plans and other things got in the way. The energy and time appeared on the 18th of September, the day before the 2010 election in Sweden. At one point I actually thought I'd be able to ship before the counting of votes started. But as always things, people and tech got in the way. So that didn't happen which kinda sucks. But for the 2014 election, I'll be ready! ;-)
+
 
 
 LICENSE
