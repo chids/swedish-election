@@ -6,8 +6,9 @@ RESTful HTML XML/JSON API to browse Swedish election results
 GAE
 
 The source is packaged for Google App Engine.
-To deploy in your own GAE it ought to be enough to pull down the source and adjust the aplication
-name inside the file: <i>war/WEB-INF/application.xml</i>
+To deploy in your own GAE it ought to be enough to pull down
+the source and adjust the application name inside the file:
+<i>war/WEB-INF/application.xml</i>
 
 
 
