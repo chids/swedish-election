@@ -22,9 +22,9 @@ slow the first time slow since I don't persist data yet...
 - List 2010 results:
 <a href="http://swedish-election-api.appspot.com/2010/">http://swedish-election-api.appspot.com/2010/</a>
 - List 2010 results by name:
-<a href="http://swedish-election-api.appspot.com/2010/sort/name/asc">http://swedish-election-api.appspot.com/2010/sort/name/asc</a>
+<a href="http://swedish-election-api.appspot.com/2010/name/asc">http://swedish-election-api.appspot.com/2010/name/asc</a>
 - List 2010 results by percent:
-<a href="http://swedish-election-api.appspot.com/2010/sort/percent/asc">http://swedish-election-api.appspot.com/2010/sort/percent/asc</a>
+<a href="http://swedish-election-api.appspot.com/2010/percent/asc">http://swedish-election-api.appspot.com/2010/percent/asc</a>
 - List 2010 results grouped by block:
 <a href="http://swedish-election-api.appspot.com/2010/group?block=Bl%C3%A5tt:M,C,FP,KD&block=R%C3%B6tt:S,MP,V&block=Mis%C3%A4r:SD">http://swedish-election-api.appspot.com/2010/group?block=Bl%C3%A5tt:M,C,FP,KD&block=R%C3%B6tt:S,MP,V&block=Mis%C3%A4r:SD</a>
 
