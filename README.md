@@ -15,11 +15,11 @@ DEMO
 
 It's running over at: http://swedish-election-api.appspot.com
 
-List available elections:            http://swedish-election-api.appspot.com
-List 2010 results:                   http://swedish-election-api.appspot.com/2010/
-List 2010 results by name:           http://swedish-election-api.appspot.com/2010/sort/name/asc
-List 2010 results by percent:        http://swedish-election-api.appspot.com/2010/sort/percent/asc
-List 2010 results grouped by block:  http://swedish-election-api.appspot.com/2010/group?block=Bl%C3%A5tt:M,C,FP,KD&block=R%C3%B6tt:S,MP,V&block=Mis%C3%A4r:SD
+List available elections:            <a href="http://swedish-election-api.appspot.com">http://swedish-election-api.appspot.com</a>
+List 2010 results:                   <a href="http://swedish-election-api.appspot.com/2010/">http://swedish-election-api.appspot.com/2010/</a>
+List 2010 results by name:           <a href="http://swedish-election-api.appspot.com/2010/sort/name/asc">http://swedish-election-api.appspot.com/2010/sort/name/asc</a>
+List 2010 results by percent:        <a href="http://swedish-election-api.appspot.com/2010/sort/percent/asc">http://swedish-election-api.appspot.com/2010/sort/percent/asc</a>
+List 2010 results grouped by block:  <a href="http://swedish-election-api.appspot.com/2010/group?block=Bl%C3%A5tt:M,C,FP,KD&block=R%C3%B6tt:S,MP,V&block=Mis%C3%A4r:SD">http://swedish-election-api.appspot.com/2010/group?block=Bl%C3%A5tt:M,C,FP,KD&block=R%C3%B6tt:S,MP,V&block=Mis%C3%A4r:SD</a>
 
 
 
