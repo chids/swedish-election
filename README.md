@@ -13,13 +13,12 @@ war/WEB-INF/application.xml
 
 DEMO
 
-It's running over at: http://swedish-election-api.appspot.com
-
-List available elections:            <a href="http://swedish-election-api.appspot.com">http://swedish-election-api.appspot.com</a>
-List 2010 results:                   <a href="http://swedish-election-api.appspot.com/2010/">http://swedish-election-api.appspot.com/2010/</a>
-List 2010 results by name:           <a href="http://swedish-election-api.appspot.com/2010/sort/name/asc">http://swedish-election-api.appspot.com/2010/sort/name/asc</a>
-List 2010 results by percent:        <a href="http://swedish-election-api.appspot.com/2010/sort/percent/asc">http://swedish-election-api.appspot.com/2010/sort/percent/asc</a>
-List 2010 results grouped by block:  <a href="http://swedish-election-api.appspot.com/2010/group?block=Bl%C3%A5tt:M,C,FP,KD&block=R%C3%B6tt:S,MP,V&block=Mis%C3%A4r:SD">http://swedish-election-api.appspot.com/2010/group?block=Bl%C3%A5tt:M,C,FP,KD&block=R%C3%B6tt:S,MP,V&block=Mis%C3%A4r:SD</a>
+It's running over at: http://swedish-election-api.appspot.com and it's dead slow the first time slow since I don't persist data yet...
+- List available elections:            <a href="http://swedish-election-api.appspot.com">http://swedish-election-api.appspot.com</a>
+- List 2010 results:                   <a href="http://swedish-election-api.appspot.com/2010/">http://swedish-election-api.appspot.com/2010/</a>
+- List 2010 results by name:           <a href="http://swedish-election-api.appspot.com/2010/sort/name/asc">http://swedish-election-api.appspot.com/2010/sort/name/asc</a>
+- List 2010 results by percent:        <a href="http://swedish-election-api.appspot.com/2010/sort/percent/asc">http://swedish-election-api.appspot.com/2010/sort/percent/asc</a>
+- List 2010 results grouped by block:  <a href="http://swedish-election-api.appspot.com/2010/group?block=Bl%C3%A5tt:M,C,FP,KD&block=R%C3%B6tt:S,MP,V&block=Mis%C3%A4r:SD">http://swedish-election-api.appspot.com/2010/group?block=Bl%C3%A5tt:M,C,FP,KD&block=R%C3%B6tt:S,MP,V&block=Mis%C3%A4r:SD</a>
 
 
 
