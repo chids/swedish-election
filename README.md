@@ -1,1 +1,1 @@
-Parse crappy XML about Swedish elecion and Tweet it.
+Parse crappy XML about Swedish election and Tweet it.
