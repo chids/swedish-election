@@ -59,6 +59,7 @@ public class Mainer {
                 System.err.println("Checksum unchanged, no lol.");
                 return;
             }
+            System.err.println("Checksum CHANGED, LOL'ing it!");
             this.checksum = checksum;
             final InputStream source = new ByteArrayInputStream(xml);
             final Document document = new nu.xom.Builder(true).build(source).getDocument();
